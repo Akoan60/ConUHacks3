@@ -1,0 +1,53 @@
+
+<!DOCTYPE HTML>
+<head></head>
+<body onload="">
+<style>
+#video{
+	width: 500px;
+	height: 375px;
+	background-color: #000;
+}
+</style>
+<div>
+	<video autoplay="true" id="video">
+	</video>
+	<button onclick="load()"/>
+	<button onclick="test()"/>
+</div>
+</body>
+<script>
+	function load()
+	{
+//		navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMEdia || navigator.msGetUserMedia || navigator.oGetUserMedia;
+
+		//var media = navigator.mediaDevices.getUserMedia();
+		var cons = {video:true};
+		var aud = {audio:true};
+
+		//var media = navigator.mediaDevices.getUserMedia(cons);
+
+		if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){
+			navigator.mediaDevices.getUserMedia(cons).then(function(stream) {
+				video.src = window.URL.createObjectURL(stream);
+				video.play();
+				alert("working");
+			
+			});
+		
+		
+		}
+
+		navigator.mediaDevices.getUserMedia(aud);
+	}
+
+	function handleVideo(stream){
+		//video.src = window.URL.createObjectURL(stream);
+		alert("working ?");
+	}
+
+	function test(){
+		var video = document.getElementById("video");
+	}
+</script>
+

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Login to record!</title>
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<style>
+	html, body{
+		position: relative;
+		height: 100%;
+		background-color: #42c5f4;
+	}
+
+	body {
+		margin: 0;
+	}
+
+	.main{
+		height: 80%;
+		position: relative;
+		text-align: center;
+	}
+
+	footer {
+		position: absolute;
+		height: 5%;
+		width: 100%;
+		margin-bottom: 0;
+		margin-left: auto;
+  		margin-right: auto;
+  		text-align: center;
+		background-color: white;
+	}
+</style>
+
+<body>
+	<nav class="navbar navbar-inverse bg-primary">
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <a href="index.html" class="navbar-left"><img style="max-width:50px"; src="logo2.png"></a>
+	    </div>
+	    <ul class="nav navbar-nav">
+	      <li><a href="index.html">Home</a></li>
+	      <li><a href="login.html">Login</a></li>
+	      <li><a href="webcam.html">Vlog</a></li>
+	    </ul>
+	  </div>
+	</nav>
+
+	<div class="main">
+		<h1> Login </h1>
+		<form action="/users/login" class="form-inline" id="UserLoginForm" method="post" accept-charset="utf-8">
+		<div style="display:none;">
+			<input type="hidden" name="_method" value="POST">
+		</div>    								
+		<div class="form-group">
+	    	<div class="input text required">
+	    		<input name="data[User][username]" class="form-control" placeholder="Enter your username" maxlength="50" type="text" id="UserUsername" required="required">
+	    	</div>    								
+	    </div>
+	    <div class="form-group">
+	    	<div class="input password required">
+	    		<input name="data[User][password]" class="form-control" placeholder="password" type="password" id="UserPassword" required="required"/>
+	    	</div>    								
+	    </div>
+	    <input name="submit" class="btn btn-outline-secondary my-2 my-sm-0" type="submit" value="Sign in"><br>
+	    </form>
+    </div>
+
+    <footer>
+        <p>©2018 HackConcorida</p>
+    </footer>
+</body>						
+</html>

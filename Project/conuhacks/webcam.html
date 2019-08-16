@@ -1,0 +1,133 @@
+
+<!DOCTYPE HTML>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</head>
+<body onload="load()">
+<style>
+.video{
+	width: 500px;
+	height: 375px;
+	background-color: #000;
+    -moz-transform:rotateY(180deg);
+}
+</style>
+<div>
+	<video autoplay="true" class="video" id="video">
+	</video>
+	<button id="stop" onclick="">STOP RECORDING</button>
+	<a id="link" href="#">Download this video</a>
+
+</div>
+</body>
+<script>
+	function load()
+	{
+//		navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMEdia || navigator.msGetUserMedia || navigator.oGetUserMedia;
+
+		//var media = navigator.mediaDevices.getUserMedia();
+		var cons = {video:true,audio:true};
+	//	var aud = {audio:true};
+
+		//var media = navigator.mediaDevices.getUserMedia(cons);
+
+		if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){
+			navigator.mediaDevices.getUserMedia(cons).then(function(stream) {
+				video.src = window.URL.createObjectURL(stream);
+				video.play();
+				video.muted = true;
+				
+				var options = {mimeType: 'video/webm; codecs=vp9'};
+				var chunks = [];
+				
+			    var mediaRecorder = new MediaRecorder(stream);
+				
+				alert("it started !");
+				mediaRecorder.start();
+				
+				var stop = document.getElementById("stop");
+				stop.onclick = function (){
+					mediaRecorder.stop();
+				}
+				//stop.onclick = stopRec(mediaRecorder);
+				
+				
+				mediaRecorder.ondataavailable = function(e){
+					chunks.push(e.data);
+				
+				}
+				
+				mediaRecorder.onstop = function(){
+					var blob = new Blob(chunks,{type: "video/webm"});
+
+					chunks = [];
+					
+					var videoURL = window.URL.createObjectURL(blob);
+					
+					var link = document.getElementById("link");
+					
+					link.href = videoURL;
+					
+					link.setAttribute("download","test.webm");
+					link.setAttribute("name","test.webm");
+					
+					
+
+			
+			
+			var i = 0;
+				$.ajax({
+     async: false,
+     type: 'GET',
+     url: '/files',
+	 dataType: "JSON",
+     success: function(data) {
+			i = data.nb+1;
+     },
+	 error: function(){ alert("er")}
+	 
+});
+			
+			
+		    var formData = new FormData();
+			formData.append("upVid", blob,"test"+i+".webm");
+			//formData.append("upVid",blob, "test"+i);
+
+    $.ajax({
+       url: "/uploadVid",
+       type: "POST",
+       data: formData,
+       processData: false,
+       contentType: false
+    });
+	
+	/*var client = new XMLHttpRequest();
+	
+		client.open("post","/uploadVid",true);
+		client.setRequestHeader("Content-Type","multipart/form-data;");
+		client.send(formData);*/
+	
+	
+	
+				}
+				 
+				//alert("working");
+			
+			});
+		
+		}
+
+		//navigator.mediaDevices.getUserMedia(aud);
+	}
+
+	function stopRec(){
+		mediaRecorder.stop();
+		alert("it stopped !");
+	}
+
+	function test(){
+		var video = document.getElementById("video");
+	}
+</script>
+

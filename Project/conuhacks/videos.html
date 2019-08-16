@@ -1,0 +1,84 @@
+
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<style>
+.video{
+	width: 500px;
+	height: 375px;
+	background-color: #000;
+    -moz-transform:rotateY(180deg);
+}
+</style>
+<body>
+<div id="test"></div>
+
+	<video class="video" id="video">
+	<source src="" type='video/webm; codecs="vp9, vorbis"'>
+	This is a test
+	</video>
+</body>
+
+<script>
+$(function(){
+
+	var test = $. get("/files");
+	
+	$.ajax({
+     async: false,
+     type: 'GET',
+     url: '/files',
+	 dataType: "JSON",
+     success: function(data) {
+          	generateVids(data.nb);
+     },
+	 error: function(){ alert("er")}
+	 
+});
+
+function generateVids(nb){
+	
+	var test = document.getElementById("test");
+	
+	$("div#test").append('<ul>');
+	for(var i = 1;i<nb+1;i++){
+		//test.innerHtml ="<a href='#'>test</a>";
+		var name = "'/test/"+i+"'";
+		$("div#test").append('<li><button onclick="displayVideo('+name+')">test</button></li>');
+	}
+	
+		$("div#test").append('</ul>');
+	
+}
+
+
+
+	
+});
+
+function displayVideo(vid){
+	
+	var video = document.getElementById("video");
+	var file;
+
+	 
+	 /*$.ajax({
+		async: false,
+		type: 'GET',
+		url: vid,
+		dataType: "JSON",
+		success: function(data){
+			file = data;
+		},
+		error: function(e){alert("error")}
+	 
+	 })*/
+	 
+	video.src = vid;
+	 
+	video.visibility = 'visible';
+	video.play();
+	
+}
+
+</script>
